@@ -23,6 +23,22 @@ class MainActivity : AppCompatActivity() {
         StartNotification("通知タイトル","通知本文")
     }
 
+
+
+    fun RepeatAlarm(){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
     @RequiresApi(Build.VERSION_CODES.O)
     fun StartNotification(strTitle:String,strText:String){
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -78,3 +94,6 @@ class MainActivity : AppCompatActivity() {
 }
 
 //サイト　-> https://qiita.com/naoi/items/367fc23e55292c50d459
+//https://oldbigbuddha.dev/post/android-notification-tutorial/
+//https://developer.android.com/training/scheduling/alarms?hl=ja
+//https://tanalab.com/2017/10/28/%E3%82%BF%E3%82%A4%E3%83%9E%E3%83%BC%E3%82%A2%E3%83%97%E3%83%AA%E3%82%92kotlin%E3%81%A7/
