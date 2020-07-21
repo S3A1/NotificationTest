@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -19,6 +20,11 @@ class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun tap_btnNotifi(view : View?) {
+        StartNotification("通知タイトル","通知本文")
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun StartNotification(strTitle:String,strText:String){
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         val name = "通知タイトル"
@@ -35,11 +41,40 @@ class MainActivity : AppCompatActivity() {
 
         val notification = NotificationCompat.Builder(this, id).apply {
             setSmallIcon(R.drawable.ic_launcher_background)
-            setContentTitle("通知のタイトル")
-            setContentText("通知の本文")
+            setContentTitle(strTitle)
+            setContentText(strText)
         }.build()
         notificationManager.notify(1, notification)
     }
+
+    fun onNotification(strTitle:String,strText:String){
+        val channelId = "CHANNEL_ID"
+        val builder = NotificationCompat.Builder(this, channelId).apply {
+            setSmallIcon(R.drawable.ic_launcher_foreground)
+            setContentTitle(strTitle)
+            setContentText(strText)
+            priority = NotificationCompat.PRIORITY_DEFAULT
+        }
+
+        // API 26 以上の場合は NotificationChannel に登録する
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "CHANNEL_NAME"
+            val description = "SAMPLE"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(channelId, name, importance).apply {
+                this.description = description
+            }
+
+            // システムにチャンネルを登録する
+            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            manager.createNotificationChannel(channel)
+        }
+
+        with(NotificationManagerCompat.from(this)) {
+            notify(1234567, builder.build())
+        }
+    }
+
 }
 
 //サイト　-> https://qiita.com/naoi/items/367fc23e55292c50d459
