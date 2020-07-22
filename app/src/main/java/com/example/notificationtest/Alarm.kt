@@ -1,4 +1,7 @@
-package com.example.maindisp
+package com.example.notificationtest;
+
+
+
 
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -21,7 +24,7 @@ class Alarm : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //Notifi()
+        Notifi()
         //setAlarmManager()
         finish()
     }
